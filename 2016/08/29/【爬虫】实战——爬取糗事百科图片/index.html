@@ -7,32 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="上回书说到，糗事百科段子的抓取，在无图言屌的网络时代，图片能给我们带来更大的冲击和信息量，那么这节课就抓一抓图片。
 建工程在平常写代码的文件夹下新建一个image_spider的文件夹再在里面新建一个images文件夹然后新建一个qiushibaike_image.py文件
-import requests
-import re
-
-def crawl_image(image_url, image_lo">
+12345678910111213141516171819import requestsimport redef crawl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【爬虫】实战——爬取糗事百科图片">
 <meta property="og:url" content="http://yoursite.com/2016/08/29/【爬虫】实战——爬取糗事百科图片/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="上回书说到，糗事百科段子的抓取，在无图言屌的网络时代，图片能给我们带来更大的冲击和信息量，那么这节课就抓一抓图片。
 建工程在平常写代码的文件夹下新建一个image_spider的文件夹再在里面新建一个images文件夹然后新建一个qiushibaike_image.py文件
-import requests
-import re
-
-def crawl_image(image_url, image_lo">
+12345678910111213141516171819import requestsimport redef crawl">
 <meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4b">
 <meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4a">
 <meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=57b83d17ab644133ed05876f">
-<meta property="og:updated_time" content="2016-08-29T14:15:37.000Z">
+<meta property="og:updated_time" content="2016-08-29T14:20:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【爬虫】实战——爬取糗事百科图片">
 <meta name="twitter:description" content="上回书说到，糗事百科段子的抓取，在无图言屌的网络时代，图片能给我们带来更大的冲击和信息量，那么这节课就抓一抓图片。
 建工程在平常写代码的文件夹下新建一个image_spider的文件夹再在里面新建一个images文件夹然后新建一个qiushibaike_image.py文件
-import requests
-import re
-
-def crawl_image(image_url, image_lo">
+12345678910111213141516171819import requestsimport redef crawl">
 <meta name="twitter:image" content="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4b">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -106,32 +97,14 @@ def crawl_image(image_url, image_lo">
       
         <p>上回书说到，糗事百科段子的抓取，在无图言屌的网络时代，图片能给我们带来更大的冲击和信息量，那么这节课就抓一抓图片。</p>
 <h2 id="建工程"><a href="#建工程" class="headerlink" title="建工程"></a>建工程</h2><p>在平常写代码的文件夹下新建一个image_spider的文件夹<br><img src="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4b" alt=""><br>再在里面新建一个images文件夹<br><img src="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4a" alt=""><br>然后新建一个qiushibaike_image.py文件</p>
-<pre><code>import requests
-import re
-
-def crawl_image(image_url, image_local_path):
-    r = requests.get(image_url, stream=True)
-    with open(image_local_path, &quot;wb&quot;) as f:
-        f.write(r.content)
-
-def crwal(page):
-    url = &quot;http://www.qiushibaike.com/imgrank/page/&quot; + str(page)
-    res = requests.get(url)
-    content_list = re.findall(&quot;&lt;div class=\&quot;thumb\&quot;&gt;(.*?)&lt;/div&gt;&quot;, res.content.decode(&quot;utf-8&quot;), re.S)
-    for content in content_list:
-        image_list = re.findall(&quot;&lt;img src=\&quot;(.*?)\&quot;&quot;, content)
-        for image_url in image_list:
-            crawl_image(image_url, &quot;./images/&quot; + image_url.strip().split(&apos;/&apos;)[-1])
-
-if __name__ == &apos;__main__&apos;:
-    crwal(1)
-</code></pre><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><pre><code>python qiushibaike_image.py
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line">def crawl_image(image_url, image_local_path):</div><div class="line">    r = requests.get(image_url, stream=True)</div><div class="line">    with open(image_local_path, &quot;wb&quot;) as f:</div><div class="line">        f.write(r.content)</div><div class="line"></div><div class="line">def crwal(page):</div><div class="line">    url = &quot;http://www.qiushibaike.com/imgrank/page/&quot; + str(page)</div><div class="line">    res = requests.get(url)</div><div class="line">    content_list = re.findall(&quot;&lt;div class=\&quot;thumb\&quot;&gt;(.*?)&lt;/div&gt;&quot;, res.content.decode(&quot;utf-8&quot;), re.S)</div><div class="line">    for content in content_list:</div><div class="line">        image_list = re.findall(&quot;&lt;img src=\&quot;(.*?)\&quot;&quot;, content)</div><div class="line">        for image_url in image_list:</div><div class="line">            crawl_image(image_url, &quot;./images/&quot; + image_url.strip().split(&apos;/&apos;)[-1])</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    crwal(1)</div></pre></td></tr></table></figure>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><pre><code>python qiushibaike_image.py
 </code></pre><p><img src="https://leanote.com/api/file/getImage?fileId=57b83d17ab644133ed05876f" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/29/【爬虫】实战——爬取糗事百科图片/" data-id="cisg4nq6i00019rslg11oug6m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/29/【爬虫】实战——爬取糗事百科图片/" data-id="cisg4u33s0000g4slug4lm3tt" class="article-share-link">Share</a>
       
       
     </footer>
