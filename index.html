@@ -48,9 +48,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -85,14 +85,14 @@
       
         <p>上回书说到，糗事百科段子的抓取，在无图言屌的网络时代，图片能给我们带来更大的冲击和信息量，那么这节课就抓一抓图片。</p>
 <h2 id="建工程"><a href="#建工程" class="headerlink" title="建工程"></a>建工程</h2><p>在平常写代码的文件夹下新建一个image_spider的文件夹<br><img src="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4b" alt=""><br>再在里面新建一个images文件夹<br><img src="https://leanote.com/api/file/getImage?fileId=57b83a87ab644135ea057c4a" alt=""><br>然后新建一个qiushibaike_image.py文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import requests</div><div class="line">import re</div><div class="line"></div><div class="line">def crawl_image(image_url, image_local_path):</div><div class="line">    r = requests.get(image_url, stream=True)</div><div class="line">    with open(image_local_path, &quot;wb&quot;) as f:</div><div class="line">        f.write(r.content)</div><div class="line"></div><div class="line">def crwal(page):</div><div class="line">    url = &quot;http://www.qiushibaike.com/imgrank/page/&quot; + str(page)</div><div class="line">    res = requests.get(url)</div><div class="line">    content_list = re.findall(&quot;&lt;div class=\&quot;thumb\&quot;&gt;(.*?)&lt;/div&gt;&quot;, res.content.decode(&quot;utf-8&quot;), re.S)</div><div class="line">    for content in content_list:</div><div class="line">        image_list = re.findall(&quot;&lt;img src=\&quot;(.*?)\&quot;&quot;, content)</div><div class="line">        for image_url in image_list:</div><div class="line">            crawl_image(image_url, &quot;./images/&quot; + image_url.strip().split(&apos;/&apos;)[-1])</div><div class="line"></div><div class="line">if __name__ == &apos;__main__&apos;:</div><div class="line">    crwal(1)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div><div class="line"><span class="keyword">import</span> re</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">crawl_image</span><span class="params">(image_url, image_local_path)</span>:</span></div><div class="line">    r = requests.get(image_url, stream=<span class="keyword">True</span>)</div><div class="line">    <span class="keyword">with</span> open(image_local_path, <span class="string">"wb"</span>) <span class="keyword">as</span> f:</div><div class="line">        f.write(r.content)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">crwal</span><span class="params">(page)</span>:</span></div><div class="line">    url = <span class="string">"http://www.qiushibaike.com/imgrank/page/"</span> + str(page)</div><div class="line">    res = requests.get(url)</div><div class="line">    content_list = re.findall(<span class="string">"&lt;div class=\"thumb\"&gt;(.*?)&lt;/div&gt;"</span>, res.content.decode(<span class="string">"utf-8"</span>), re.S)</div><div class="line">    <span class="keyword">for</span> content <span class="keyword">in</span> content_list:</div><div class="line">        image_list = re.findall(<span class="string">"&lt;img src=\"(.*?)\""</span>, content)</div><div class="line">        <span class="keyword">for</span> image_url <span class="keyword">in</span> image_list:</div><div class="line">            crawl_image(image_url, <span class="string">"./images/"</span> + image_url.strip().split(<span class="string">'/'</span>)[<span class="number">-1</span>])</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    crwal(<span class="number">1</span>)</div></pre></td></tr></table></figure>
 <h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><pre><code>python qiushibaike_image.py
 </code></pre><p><img src="https://leanote.com/api/file/getImage?fileId=57b83d17ab644133ed05876f" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/29/【爬虫】实战——爬取糗事百科图片/" data-id="cisg4u33s0000g4slug4lm3tt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/29/【爬虫】实战——爬取糗事百科图片/" data-id="cisg4w8mc0000j9sl0tdjs1tj" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -137,7 +137,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/08/29/hello-world/" data-id="cisg4u33w0001g4slqyjyitn6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/08/29/hello-world/" data-id="cisg4w8mh0001j9slezswsfz2" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -172,7 +172,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -197,7 +197,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
